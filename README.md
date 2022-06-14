@@ -5,7 +5,7 @@ Welcome on my Github profile
 
 
 ## 🚀 About Me
-My name is Raphael L. and I'm a fullstack developer actualy working at [Clic And Fit](https://clicandfit.com) based in Lyon (France)\
+My name is Raphaël L. and I'm a fullstack developer actualy working at [Clic And Fit](https://clicandfit.com) based in Lyon (France)\
 👨‍🎓 Wild Code School alumni (September 2021 session's in Lyon)
 
 ## 🛠 Skills
@@ -16,7 +16,7 @@ Symfony - PHP - Javascript - Python - MySQL - Twig
 
 👩‍💻💎 I'm currently learning Ruby and its framework Ruby on Rails in self-taught during my free time
 
-⚡️ Fun fact : 
+⚡️ Fun fact : I like regex
 
 
 ## 🔗 Links
