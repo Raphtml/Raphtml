@@ -15,7 +15,7 @@ Symfony - PHP - Javascript - Python - MySQL - Twig
 ## ☕️ What else ?
 
 👩‍💻💎 I'm currently learning Ruby/Ruby on Rails, React and Three.js in self-taught during my free time \
-⚡️ Fun fact : 529 days past since I am web developer
+⚡️ Fun fact : 530 days past since I am web developer
 
 ## 🔗 Links
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/raphael-liere/)
