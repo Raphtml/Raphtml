@@ -6,7 +6,7 @@ Welcome on my Github profile
 
 ## 🚀 About Me
 My name is Raphaël L. and I'm a fullstack developer actualy working at [Clic And Fit](https://clicandfit.com) based in Lyon (France)\
-👨‍🎓 Wild Code School alumni (September 2k21 session's in Lyon)
+👨‍🎓 Wild Code School alumni (September 2k20 session's in Lyon)
 
 ## 🛠 Skills
 Symfony - PHP - Javascript - Python - MySQL - Twig
