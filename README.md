@@ -5,16 +5,16 @@ Welcome on my Github profile
 
 
 ## 🚀 About Me
-My name is Raphaël L. and I'm a fullstack developer actualy working at [Clic And Fit](https://clicandfit.com) based in Lyon (France)\
+My name is Raphaël L. and I'm a backend developer actualy working at [Le Collectionist](https://www.lecollectionist.com/fr)\
 👨‍🎓 Wild Code School alumni (September 2k20 session's in Lyon)
 
 ## 🛠 Skills
-Symfony - PHP - Javascript - Python - MySQL - Twig
+Ruby/RoR - PHP/Symfony/Laravel - Javascript - Python/Flask - MySQL/PostgreSQL
 
 
 ## ☕️ What else ?
 
-👩‍💻💎 I'm currently learning Ruby/Ruby on Rails, React and Three.js in self-taught during my free time \
+👩‍💻💎 I'm currently learning React and Three.js in self-taught during my free time \
 ⚡️ Fun fact : 602 days past since I am web developer
 
 ## 🔗 Links
