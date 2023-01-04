@@ -15,7 +15,7 @@ Ruby/RoR - PHP/Symfony/Laravel - Javascript - Python/Flask - MySQL/PostgreSQL
 ## ☕️ What else ?
 
 👩‍💻💎 I'm currently learning React and Three.js in self-taught during my free time \
-⚡️ Fun fact : 687 days past since I am web developer
+⚡️ Fun fact : 688 days past since I am web developer
 
 ## 🔗 Links
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/raphael-liere/)
