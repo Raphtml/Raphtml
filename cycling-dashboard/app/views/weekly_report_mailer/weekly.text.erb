@@ -1,0 +1,30 @@
+Bonjour <%= @athlete.firstname %>,
+
+═══════════════════════════════════════════
+RAPPORT HEBDOMADAIRE — <%= Date.today.strftime('%d/%m/%Y') %>
+═══════════════════════════════════════════
+
+🏁  Étape du Tour 2026 : J-<%= @days_left %>
+
+── FORME DU MOMENT ─────────────────────────
+Statut   : <%= @form[:label] %>
+CTL      : <%= @today_load&.ctl %> (forme chronique 42j)
+ATL      : <%= @today_load&.atl %> (fatigue aiguë 7j)
+TSB      : <%= @today_load&.tsb %> (fraîcheur — objectif J-jour : +10 à +20)
+
+<%= @form[:advice] %>
+
+── SEMAINE EN COURS ────────────────────────
+Sorties  : <%= @week_rides.count %>
+Distance : <%= @week_km %> km
+Dénivelé : <%= @week_elev %> m D+
+Durée    : <%= @week_h %>h
+
+── DERNIÈRES SORTIES ───────────────────────
+<% @recent.each do |a| %>
+  <%= a.start_date_local.strftime('%d/%m') %>  <%= a.name.ljust(32) %>  <%= a.distance_km.to_s.rjust(6) %> km  <%= a.total_elevation_gain.to_i.to_s.rjust(4) %> m D+  <%= a.duration_formatted %>
+<% end %>
+
+═══════════════════════════════════════════
+Dashboard : http://localhost:3000
+═══════════════════════════════════════════

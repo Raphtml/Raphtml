@@ -1,0 +1,117 @@
+<%
+  weeks, max_km = @weekly
+  form_colors = { "green" => "text-green-600", "blue" => "text-blue-600",
+                  "yellow" => "text-amber-500", "red" => "text-red-500", "purple" => "text-purple-600" }
+  form_bgs    = { "green" => "bg-green-50 border-green-200",  "blue" => "bg-blue-50 border-blue-200",
+                  "yellow" => "bg-amber-50 border-amber-200", "red" => "bg-red-50 border-red-200",
+                  "purple" => "bg-purple-50 border-purple-200" }
+  color = @form[:color] || "green"
+%>
+
+<!-- Countdown banner -->
+<div class="bg-gradient-to-r from-orange-500 to-orange-400 rounded-2xl p-6 text-white mb-6 shadow-sm">
+  <div class="flex items-start justify-between flex-wrap gap-4">
+    <div>
+      <p class="text-orange-100 text-xs font-semibold uppercase tracking-widest mb-1">Objectif</p>
+      <p class="text-5xl font-black leading-none">J-<%= @days_left %></p>
+      <p class="text-orange-100 mt-2 text-sm">Étape du Tour · 19 juillet 2026</p>
+    </div>
+    <div class="flex gap-3">
+      <%= button_to "↻ Sync Strava", sync_dashboard_path,
+            class: "bg-white/20 hover:bg-white/30 text-white text-sm font-medium px-4 py-2 rounded-xl transition-colors" %>
+      <%= button_to "📧 Rapport email", reports_path,
+            class: "bg-white text-orange-600 hover:bg-orange-50 text-sm font-medium px-4 py-2 rounded-xl transition-colors" %>
+    </div>
+  </div>
+</div>
+
+<!-- CTL / ATL / TSB -->
+<div class="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
+  <% [
+    { label: "CTL", value: @today&.ctl, sub: "Forme (42j)",  tip: "Plus c'est haut, meilleure est ta condition physique. Vise 60+ avant l'Étape.", color_class: "text-blue-600" },
+    { label: "ATL", value: @today&.atl, sub: "Fatigue (7j)", tip: "Fatigue aiguë. Diminue avec la récupération.", color_class: "text-red-500" },
+    { label: "TSB", value: @today&.tsb, sub: "Fraîcheur",    tip: "CTL − ATL. Objectif le jour J : entre +10 et +20.", color_class: (@today&.tsb || 0) >= 5 ? "text-green-600" : (@today&.tsb || 0) >= -10 ? "text-amber-500" : "text-red-500" },
+  ].each do |m| %>
+    <div class="bg-white rounded-xl p-5 shadow-sm border border-slate-100" title="<%= m[:tip] %>">
+      <p class="text-xs text-slate-400 font-semibold uppercase tracking-wide"><%= m[:sub] %></p>
+      <p class="text-4xl font-black mt-1 <%= m[:color_class] %>"><%= m[:value] || "—" %></p>
+      <p class="text-sm font-bold text-slate-600 mt-1"><%= m[:label] %></p>
+    </div>
+  <% end %>
+
+  <!-- Form status -->
+  <div class="bg-white rounded-xl p-5 shadow-sm border <%= form_bgs[color] %>">
+    <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Statut</p>
+    <p class="text-lg font-black mt-1 <%= form_colors[color] %>"><%= @form[:label] || "—" %></p>
+    <p class="text-xs text-slate-500 mt-1 leading-relaxed"><%= @form[:advice] %></p>
+  </div>
+</div>
+
+<!-- Chart -->
+<div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 mb-6">
+  <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-4">CTL / ATL / TSB — 60 derniers jours</h2>
+  <%= line_chart [
+    { name: "CTL", data: @chart_data[:ctl], color: "#3b82f6" },
+    { name: "ATL", data: @chart_data[:atl], color: "#ef4444" },
+    { name: "TSB", data: @chart_data[:tsb], color: "#16a34a" }
+  ], height: "220px", library: { scales: { x: { ticks: { maxTicksLimit: 10 } } } } %>
+</div>
+
+<!-- Weekly summary -->
+<div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100 mb-6">
+  <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-4">4 dernières semaines</h2>
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <% weeks.each do |w| %>
+      <div class="bg-slate-50 rounded-xl p-4">
+        <p class="text-xs font-semibold text-slate-500 mb-2"><%= w[:label] %></p>
+        <div class="h-1 bg-slate-200 rounded mb-3">
+          <div class="h-1 bg-orange-400 rounded transition-all"
+               style="width: <%= max_km > 0 ? (w[:km] / max_km * 100).round(1) : 0 %>%"></div>
+        </div>
+        <p class="text-xl font-black text-slate-700"><%= w[:km] %> <span class="text-sm font-normal text-slate-400">km</span></p>
+        <p class="text-xs text-slate-400 mt-1"><%= w[:elevation] %> m D+</p>
+        <p class="text-xs text-slate-400"><%= w[:hours] %>h · <%= w[:count] %> sorties</p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Recent activities -->
+<div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xs font-semibold text-slate-400 uppercase tracking-wide">Dernières sorties</h2>
+    <%= link_to "Voir tout →", activities_path, class: "text-xs text-orange-500 hover:text-orange-600 font-medium" %>
+  </div>
+
+  <% if @recent.empty? %>
+    <p class="text-slate-400 text-sm text-center py-4">Aucune sortie trouvée.</p>
+  <% else %>
+    <div class="divide-y divide-slate-50">
+      <% @recent.each do |a| %>
+        <div class="flex items-center justify-between py-3 -mx-2 px-2 rounded-lg hover:bg-slate-50 transition-colors">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="text-lg flex-shrink-0"><%= a.trainer? ? "🖥️" : "🚴" %></span>
+            <div class="min-w-0">
+              <p class="font-medium text-slate-700 text-sm truncate"><%= a.name %></p>
+              <p class="text-xs text-slate-400"><%= a.start_date_local.strftime("%d %b %Y") %></p>
+            </div>
+          </div>
+          <div class="flex gap-4 ml-4 flex-shrink-0">
+            <div class="text-right">
+              <p class="text-sm font-semibold text-slate-700"><%= a.distance_km %> km</p>
+              <p class="text-xs text-slate-400">distance</p>
+            </div>
+            <div class="text-right hidden sm:block">
+              <p class="text-sm font-semibold text-slate-700"><%= a.total_elevation_gain.to_i %> m</p>
+              <p class="text-xs text-slate-400">D+</p>
+            </div>
+            <div class="text-right">
+              <p class="text-sm font-semibold text-slate-700"><%= a.duration_formatted %></p>
+              <p class="text-xs text-slate-400">durée</p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
