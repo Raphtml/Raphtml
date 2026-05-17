@@ -1,0 +1,5 @@
+.env
+data/tokens.json
+data/activities_cache.json
+.bundle/
+vendor/

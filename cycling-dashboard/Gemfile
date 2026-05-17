@@ -1,0 +1,9 @@
+source 'https://rubygems.org'
+
+ruby '>= 3.0'
+
+gem 'sinatra', '~> 3.0'
+gem 'sinatra-contrib', '~> 3.0'
+gem 'faraday', '~> 2.0'
+gem 'dotenv', '~> 3.0'
+gem 'rack', '~> 3.0'
